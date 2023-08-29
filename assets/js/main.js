@@ -1,8 +1,3 @@
-
-const limit = 10
-const offset = 0
-const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
-
 function pokemonConvertToLI(pokemon){
 
     return `
@@ -20,16 +15,10 @@ function pokemonConvertToLI(pokemon){
         </li>
     `
 }
+
 const pokemonList = document.getElementById('pokemonList')
 
-fetch(url)
-    .then((response) => response.json())
-    .then((jsonBody) => jsonBody.results)
-    .then((pokemons) =>{
-        for (let i = 0; i < pokemons.length; i++) {
-            const pokemon = pokemons [i];
-            pokemonList.innerHTML += pokemonConvertToLI(pokemon)
-
-        }
+   pokeApi.getPokemons().then((pokemons = []) =>{
+   
+    pokemonList.innerHTML += pokemons.map(pokemonConvertToLI).join('')
     })
-    .catch((error) => console.error(error))
